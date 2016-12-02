@@ -23,7 +23,7 @@ int sfs_remove(char *file);
 #define FILE_NAME_LIMIT 16
 #define FILE_EXT_LIMIT 3
 
-/*================define block number==================*/
+/*================define block info==================*/
 // the total num is 3000, 299 files alowed
 #define SUPER_BLOCK_NUM 1
 #define INODE_TABLE_SIZE 300
@@ -31,7 +31,14 @@ int sfs_remove(char *file);
 #define FREE_BIT_MAP_SIZE 1
 
 #define DIRECT_PTR_SIZE 12
-#define INDIRECT_PTR_SIZE BLOCK_SIZE/sizeof(int);
+#define INDIRECT_PTR_SIZE BLOCK_SIZE/sizeof(int)
+//length of free_bit_map, unit is byte
+#define FREE_BIT_MAP_LENGTH (DATA_BLOCK_SIZE + 7)/8
+#define SUPER_BLOCK_START_ADDRESS 0
+#define INODE_TABLE_START_ADDRESS SUPER_BLOCK_NUM
+#define DATA_BLOCK_START_ADDRESS (INODE_TABLE_SIZE + INODE_TABLE_START_ADDRESS)
+#define FREE_BIT_MAP_START_ADDRESS (DATA_BLOCK_SIZE + DATA_BLOCK_START_ADDRESS)
+
 /*================data structure================*/
 typedef struct super_block{
 	int magic;
@@ -97,3 +104,4 @@ typedef struct open_fd_table{
 inode_table it;    //inode table
 dir d;			//directory table
 open_fd_table oft;						//open file table
+unsigned char free_bit_map[FREE_BIT_MAP_LENGTH];
