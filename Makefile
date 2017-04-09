@@ -2,9 +2,9 @@
 # To compile with test1, make test1
 # To compile with test2, make test2
 
-CC = clang -g -Wall
+CC = clang -g -Wall -lm
 LDFLAGS = `pkg-config fuse --cflags --libs`
-EXECUTABLE=sfs
+EXECUTABLE=Zhening_Zhang
 
 SOURCES= disk_emu.c sfs_api.c fuse_wrappers.c
 SOURCES_TEST1= disk_emu.c sfs_api.c sfs_test1.c tests.c
